@@ -1,29 +1,26 @@
-import express from "express";
-import mockUsers from "../mocks/mockUsers";
+import { UserModel } from "../models/user.models.js";
 
-const Router = express.Router();
+export default (app) => {
+	app.get("/users", async (req, res) => {
+		const users = (await UserModel.find()) || [];
+		res.send(users);
+	});
 
-Router.get("/users", (req, res) => {
-    res.send(mockUsers);
-});
+	app.get("/users/:id", async (req, res) => {
+		try {
+			const user = await UserModel.findById(req.params.id);
+			if (user) {
+				res.send(user);
+			} else {
+				res.status(404).end();
+			}
+		} catch (error) {
+			res.status(404).end();
+		}
+	});
 
-Router.get("/users/:id", (req, res) => {
-    res.send(mockUsers[0]);
-})
-
-Router.post("/users/new", (req, res) => {
-    console.log(req.body);
-    res.status(200).end();
-});
-
-Router.put("/users/update/:id", (req, res) => {
-    const id = req.params.id;
-    console.log(id, req.body);
-    res.status(200).end();
-});
-
-Router.delete("/users/delete/:id", (req, res) => {
-    const id = req.params.id;
-    console.log(id);
-    res.status(200).end();
-})
+	app.post("/users/new", (req, res) => {
+		console.log(req.body);
+		res.status(200).end();
+	});
+};
