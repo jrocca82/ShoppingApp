@@ -1,0 +1,30 @@
+export const users = [
+    { username: "admin", email: "admin@company.org", role: "admin" },
+    { username: "alice", email: "alice@gmail.com", role: "customer" },
+    { username: "bob", email: "bob@gmail.com", role: "customer" },
+    { username: "carl", email: "carl@gmail.com", role: "customer" },
+    { username: "diane", email: "diane@gmail.com", role: "customer" },
+    { username: "elaine", email: "elaine@gmail.com", role: "customer" },
+    { username: "frank", email: "frank@gmail.com", role: "customer" },
+    { username: "gertrude", email: "gertrude@gmail.com", role: "customer" },
+    { username: "harry", email: "harry@gmail.com", role: "customer" },
+    { username: "ingrid", email: "ingrid@gmail.com", role: "customer" },
+    { username: "jo", email: "jo@gmail.com", role: "customer" },
+    { username: "karen", email: "karen@gmail.com", role: "customer" },
+    { username: "liam", email: "liam@gmail.com", role: "customer" },
+    { username: "mary", email: "mary@gmail.com", role: "customer" },
+    { username: "nancy", email: "nancy@gmail.com", role: "customer" },
+];
+
+export const products = [
+    { name: "T-Shirt Red Slim", price: 1999, images: [], categories: ["tshirt", "womens"]},
+    { name: "T-Shirt Red Fitted", price: 1999, images: [], categories: ["tshirt", "mens"]},
+    { name: "T-Shirt Red Women's", price: 2099, images: [], categories: ["tshirt", "womens"]},
+    { name: "T-Shirt Red V-Neck", price: 2099, images: [], categories: ["tshirt", "mens"]},
+    { name: "T-Shirt Red Oversized", price: 2199, images: [], categories: ["tshirt", "mens"]},
+    { name: "T-Shirt White Slim", price: 1999, images: [], categories: ["tshirt", "womens"]},
+    { name: "T-Shirt White Fitted", price: 1999, images: [], categories: ["tshirt", "mens"]},
+    { name: "T-Shirt White Women's", price: 2099, images: [], categories: ["tshirt", "womens"]},
+    { name: "T-Shirt White V-Neck", price: 2099, images: [], categories: ["tshirt", "womens"]},
+    { name: "T-Shirt White Oversized", price: 2199, images: [], categories: ["tshirt", "mens"]},
+]
