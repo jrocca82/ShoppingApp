@@ -2,8 +2,12 @@ import { UserModel } from "../models/user.models.js";
 
 export default (app) => {
 	app.get("/users", async (req, res) => {
-		const users = (await UserModel.find()) || [];
-		res.send(users);
+		if (!req.isAdmin) {
+			res.status(403).end();
+		} else {
+			const users = (await UserModel.find()) || [];
+			res.send(users);
+		}
 	});
 
 	app.get("/users/:id", async (req, res) => {
