@@ -7,16 +7,23 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
+    "@types/mongodb": "^4.0.7",
     "@types/node": "^16.11.57",
     "@types/react": "^18.0.18",
     "@types/react-dom": "^18.0.6",
+    "@types/react-page-visibility": "^6.4.1",
+    "axios": "^0.27.2",
+    "mongodb": "^4.9.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-page-visibility": "^7.0.0",
+    "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
+    "spicy-datatable": "^0.8.2",
+    "store2": "^2.14.2",
     "typescript": "^4.8.2",
     "web-vitals": "^2.1.4"
   },
-
   "devDependencies": {
     "prettier": "^2.7.1"
   },

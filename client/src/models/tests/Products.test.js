@@ -1,4 +1,4 @@
-import Product from "../product.model";
+import Product from "../../../../server/models/product.model";
 
 test("It makes a new product", () => {
     const raw = {

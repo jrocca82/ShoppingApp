@@ -1,78 +1,63 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
-import Checkbox from "./components/inputs/Checkbox";
-import PasswordInput from "./components/inputs/PasswordInput";
-import TextInput from "./components/inputs/TextInput";
-import Form from "./components/Form";
-import Button from "./components/Button";
+import { Routes, BrowserRouter as Router, Route } from "react-router-dom";
+import {
+    Home,
+    FormPage,
+    Cart,
+    Orders,
+    Account,
+    Category,
+    NotFound,
+} from "./pages/index";
+import { NavBar } from "./components";
+import { ProductInstance } from "./models/product";
+import Product from "./pages/Product";
+import store from "store2";
+import { usePageVisibility } from 'react-page-visibility';
+import ProductManagement from "./pages/admin/ProductManagement";
+import UserManagement from "./pages/admin/UserManagement";
 
 function App() {
-    const [firstName, setFirstName] = useState<string>("");
-    const [lastName, setLastName] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
-    const [sendEmail, setSendEmail] = useState<boolean>(false);
+    const [itemsInCart, setItemsInCart] = useState<ProductInstance[]>(store.get("itemsInCart") || []);
+    const isVisible = usePageVisibility();
 
-    const handleFirstNameChange = (
-        event: React.ChangeEvent<HTMLInputElement>
-    ) => {
-        setFirstName(event.target.value);
-    };
-
-    const handleLastNameChange = (
-        event: React.ChangeEvent<HTMLInputElement>
-    ) => {
-        setLastName(event.target.value);
-    };
-
-    const handlePasswordChange = (
-        event: React.ChangeEvent<HTMLInputElement>
-    ) => {
-        setPassword(event.target.value);
-    };
-
-    const handleCheckEmail = () => {
-        setSendEmail(!sendEmail);
-    };
-
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
+    const addToCart = (item: ProductInstance) => {
+        itemsInCart.push(item);
+        store.set("itemsInCart", itemsInCart);
     }
 
+    const removeFromCart = (index: number) => {
+        itemsInCart.splice(index, 1);
+        store.set("itemsInCart", itemsInCart);
+    }
+
+    useEffect(() => {
+        if(isVisible) {
+            setItemsInCart(store.get("itemsInCart") || [])
+        }
+    }, [itemsInCart]);
+
     return (
-        <div className="App">
-            {/* <ProductList products={products} /> */}
-            <Form onSubmit={handleSubmit}>
-                <TextInput
-                    value={firstName}
-                    label="First name"
-                    name="First name"
-                    placeholder="First name"
-                    onChange={handleFirstNameChange}
-                />
-                <TextInput
-                    value={lastName}
-                    placeholder="Last name"
-                    label="Last name"
-                    name="Last name"
-                    onChange={handleLastNameChange}
-                />
-                <PasswordInput
-                    value={password}
-                    name="password"
-                    placeholder="Password"
-                    onChange={handlePasswordChange}
-                    label="Password"
-                />
-                <Checkbox
-                    checked={sendEmail}
-                    onChange={handleCheckEmail}
-                    label="Sign up to our email list"
-                />
-                <Button className="BaseButton PrimaryButton">
-                    Submit
-                </Button>
-            </Form>
-        </div>
+        <Router>
+            <div className="App">
+                <NavBar isLoggedIn={true} itemsInCart={itemsInCart}/>
+                <Routes>
+                    <Route path="/home" element={<Home />} />
+                    <Route path="/forms" element={<FormPage />} />
+                    <Route path="/cart" element={<Cart itemsInCart={itemsInCart}/>} />
+                    <Route path="/orders" element={<Orders />} />
+                    <Route path="/account" element={<Account />} />
+                    <Route path="/category/:slug" element={<Category />} />
+                    <Route path="/product/:id" element={<Product addToCart={addToCart} />} />
+                    <Route path="*" element={<NotFound />} />
+
+                    {/* Admin Routes */}
+                    <Route path="/admin/users" element={<UserManagement/>}/>
+                    <Route path="/admin/products" element={<ProductManagement />}/>
+                </Routes>
+            </div>
+        </Router>
     );
 }
 

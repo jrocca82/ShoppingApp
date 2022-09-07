@@ -1,23 +1,23 @@
 import { config } from "dotenv";
 import express from "express";
 import bodyParser from "body-parser";
-import db from "./db/index.js";
-import getUserRoutes from "./routes/user.routes.js";
-import getProductRoutes from "./routes/products.routes.js";
-import logger from "./middleware/logger.js";
-import auth from "./middleware/authentication.js";
-import mockUsers from "./mocks/mockUsers.js";
+import cors from "cors";
+import getUserRoutes from "./routes/user.routes";
+import getProductRoutes from "./routes/products.routes";
+import auth from "./middleware/authentication";
 
 config();
 
 const app = express();
+
+app.use(cors());
+
 const port = process.env.PORT;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(auth);
-app.use(logger);
 
 app.get("/", (req, res) => {
 	res.send("Hello Lorenzo. you are a cutie");

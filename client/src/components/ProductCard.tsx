@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import "./ProductCard.css";
+import "./styles/ProductCard.css";
 
 type ProductCardProps = {
     productName: string;
     productPrice: number;
     images: string[];
-    pull: boolean;
+    pull?: boolean;
+    withRemoveButton?: boolean;
+    onRemove?: () => void;
 };
 
 const ProductCard = ({
@@ -13,6 +15,7 @@ const ProductCard = ({
     productPrice,
     images,
     pull,
+    withRemoveButton
 }: ProductCardProps) => {
     const [imageIndex, setImageIndex] = useState<number>(0);
 

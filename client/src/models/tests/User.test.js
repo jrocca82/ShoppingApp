@@ -1,4 +1,4 @@
-import User from "../user.models";
+import User from "../../../../server/models/user.models";
 
 test("It makes a new product", () => {
     const raw = {
