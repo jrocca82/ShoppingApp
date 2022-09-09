@@ -1,4 +1,4 @@
-import { getModelForClass, index, prop, modelOptions } from "@typegoose/typegoose";
+import { getModelForClass, index, prop, modelOptions, Severity } from "@typegoose/typegoose";
 
 type StringArray = string[]
 
@@ -6,6 +6,9 @@ type StringArray = string[]
   schemaOptions: {
     collection: "products",
   },
+  options: {
+    allowMixed: Severity.ALLOW
+  }
 })
 
 export class Products {

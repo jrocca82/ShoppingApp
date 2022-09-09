@@ -1,10 +1,17 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
+import admin from "./admin";
 
-type Next = () => void | Promise<void>;
-
-const logger = (req: Request, res: Response, next: Next) => {
-    console.log("=> ", req.method, req.url, "Admin: ", req.params.isAdmin, "Auth: ", req.params.isAuthenticated);
-    next();
+const logger = (req: Request, res: Response, next: NextFunction) => {
+	console.log(
+		"=> ",
+		req.method,
+		req.url,
+		"Admin: ",
+		admin(req, res, next),
+		"Auth: ",
+		req.params.isAuthenticated
+	);
+	next();
 };
 
-export default logger
+export default logger;
