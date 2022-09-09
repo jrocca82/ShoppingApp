@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { config } from "dotenv";
 import { UserModel } from "../models/user.models";
-import { ProductModel } from "../models/product.model";
+import ProductModel from "../models/product.model";
 import { users, products } from "./data";
 
 config();

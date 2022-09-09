@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import "./Cart.css";
 import SubmitOrderForm, { FormValues } from "../components/SubmitOrderForm";
 import ShoppingCartList from "../components/ShoppingCartList";
-import { ProductInstance } from "../models/product";
+import { ProductType } from "../models/product.model";
 
 type CartProps = {
-    itemsInCart: ProductInstance[];
-}
+    itemsInCart: ProductType[] | undefined;
+};
 
-const Cart = ({itemsInCart}: CartProps) => {
+const Cart = ({ itemsInCart }: CartProps) => {
     const [checkoutState, setCheckoutState] = useState<string>();
     const [values, setValues] = useState<FormValues>();
     const [shippingAddress, setShippingAddress] = useState();
@@ -19,7 +19,7 @@ const Cart = ({itemsInCart}: CartProps) => {
     const [errorMessage, setErrorMessage] = useState<string | undefined>(
         undefined
     );
-    const [items, setItems] = useState();
+    const [items, setItems] = useState<ProductType[]>();
 
     const startCheckout = (e: any) => {
         setCheckoutState("started");

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./shared.css";
 import DataTable from "../../components/DataTable";
 import LoadingIndicator from "../../components/LoadingIndicator";
-import { UserInstance } from "../../models/users";
+import UserModel from "../../models/users.model";
 
 const columns = [
     { key: "_id", label: "ID" },
@@ -11,7 +11,7 @@ const columns = [
 ];
 
 const UserManagement = () => {
-    const [users, setUsers] = useState<UserInstance[]>();
+    const [users, setUsers] = useState<[]>();
     const [loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {});

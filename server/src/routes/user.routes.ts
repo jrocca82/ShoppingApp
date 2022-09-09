@@ -1,4 +1,4 @@
-import { UserModel } from "../models/user.models";
+import UserModel from "../models/user.models";
 import { Request, Response } from "express";
 
 export default (app: {

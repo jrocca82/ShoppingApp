@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from "react";
-import getProducts from "../api/getProducts";
+import { getProducts } from "../api/products";
 import { ProductList } from "../components";
 import instance from "../api/axios";
 import LoadingIndicator from "../components/LoadingIndicator";
-import { products } from "../data/mockData"
-import { ProductInstance } from "../models/product";
+import { products } from "../data/mockData";
+import { ProductType } from "../models/product.model";
 
 const Home = () => {
-    const [pageProducts, setPageProducts] = useState<ProductInstance[] | undefined>(undefined);
-    const [categories, setCategories] = useState<string[]>([]);
+    const [pageProducts, setPageProducts] = useState<ProductType[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
-        setPageProducts(products);
-        setLoading(false);
-    }, [categories]);
-
-    console.log(products);
+        (async () => {
+            setLoading(true);
+            const products = await getProducts(instance);
+            setPageProducts(products);
+            setLoading(false);
+        })();
+    }, []);
 
     return loading ? (
         <LoadingIndicator />

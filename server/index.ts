@@ -2,11 +2,14 @@ import { config } from "dotenv";
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
-import getUserRoutes from "./routes/user.routes";
-import getProductRoutes from "./routes/products.routes";
-import auth from "./middleware/authentication";
+import getUserRoutes from "./src/routes/user.routes";
+import getProductRoutes from "./src/routes/products.routes";
+import connectDatabase from "./src/scripts/database";
+import auth from "./src/middleware/authentication";
 
 config();
+
+connectDatabase();
 
 const app = express();
 

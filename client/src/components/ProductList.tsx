@@ -1,25 +1,35 @@
 import React from "react";
-import { ProductInstance } from "../models/product";
-import { products } from "../data/mockData";
+import { Link } from "react-router-dom";
+import { ProductType } from "../models/product.model";
 import ProductCard from "./ProductCard";
 
 type ProductListProps = {
-    products: ProductInstance[] | undefined
-}
+    products: ProductType[];
+};
 
-const ProductList = ({products}: ProductListProps) => {
+const ProductList = ({ products }: ProductListProps) => {
     return (
         <div className="ProductList">
             {products?.map((product, index: number) => {
                 return (
-                    <ProductCard
+                    <Link
                         key={product._id}
-                        images={product.images}
-                        pull={index % 2 !== 0}
-                        productName={product.name}
-                        productPrice={product.price}
-                        {...products}
-                    />
+                        to={`/product/${product._id}`}
+                        style={
+                            index % 2 !== 0
+                                ? { alignSelf: "flex-end" }
+                                : undefined
+                        }
+                    >
+                        <ProductCard
+                            key={product._id}
+                            images={product.images}
+                            pull={index % 2 !== 0}
+                            productName={product.name}
+                            productPrice={+product.price}
+                            {...products}
+                        />
+                    </Link>
                 );
             })}
         </div>

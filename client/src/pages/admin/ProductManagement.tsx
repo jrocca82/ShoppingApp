@@ -2,7 +2,6 @@ import React, { Component, useEffect, useState } from "react";
 import "./shared.css";
 import DataTable from "../../components/DataTable";
 import LoadingIndicator from "../../components/LoadingIndicator";
-import { ProductInstance } from "../../models/product";
 
 const columns = [
     { key: "_id", label: "ID" },
@@ -11,7 +10,7 @@ const columns = [
 ];
 
 const ProductManagement = () => {
-    const [products, setProducts] = useState<ProductInstance[]>();
+    const [products, setProducts] = useState<[]>();
     const [loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {});

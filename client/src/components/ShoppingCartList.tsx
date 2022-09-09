@@ -1,11 +1,12 @@
-import React from "react";
-import getProducts from "../api/getProducts";
-import { ProductInstance } from "../models/product";
+import React, { useState } from "react";
+import instance from "../api/axios";
+import { getProducts } from "../api/products";
+import { ProductType } from "../models/product.model";
 import Button from "./Button";
 import ProductCard from "./ProductCard";
 
 type ShoppingCartProps = {
-    items?: ProductInstance[];
+    items?: ProductType[];
     removeFromCart: (index: number) => void;
     startCheckout: (e: any) => void;
 };
@@ -17,18 +18,16 @@ const ShoppingCartList = ({
 }: ShoppingCartProps) => {
     return items ? (
         <div>
-            {/* {items
-                    .map((item) => getProducts(item))
-                    .map((item, index) => (
-                        <ProductCard
-                            key={`${item._id}_${index}`}
-                            productName={item.name}
-                            images={item.images}
-                            productPrice={item.price}
-                            withRemoveButton
-                            onRemove={() => removeFromCart(index)}
-                        />
-                    ))} */}
+            {items.map((item) => {
+                return (
+                    <ProductCard
+                        key={item._id}
+                        productName={item.name}
+                        productPrice={+item.price}
+                        images={item.images}
+                    />
+                );
+            })}
             <Button
                 onClick={startCheckout}
                 className={"BaseButton PrimaryButton"}

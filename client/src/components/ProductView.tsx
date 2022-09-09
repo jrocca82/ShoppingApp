@@ -1,23 +1,25 @@
-import React, { useState, useEffect } from "react";
-import { ProductInstance } from "../models/product";
+import React from "react";
+import { ProductType } from "../models/product.model";
+import Button from "./Button";
 
 type ProductViewProps = {
-    addToCart: (item: ProductInstance) =>void;
-    product: ProductInstance;
-}
+    addToCart: (item: ProductType) => void;
+    product: ProductType;
+};
 
-const ProductView = ({addToCart}: ProductViewProps) => {
-    const [product, setProduct] = useState<ProductInstance>();
-
-    useEffect(() => {
-        setProduct(product)
-    });
-
+const ProductView = ({ addToCart, product }: ProductViewProps) => {
     return (
-        <div>
-
+        <div className="ProductView">
+            <h2>{product.name}</h2>
+            <p>${product.price}</p>
+            <Button onClick={addToCart} className={"BaseButton PrimaryButton"}>
+                🛒 Add to Cart
+            </Button>
+            {product.images.map((src) => (
+                <img src={src} key={src} />
+            ))}
         </div>
-    )
-}
+    );
+};
 
-export default ProductView
+export default ProductView;

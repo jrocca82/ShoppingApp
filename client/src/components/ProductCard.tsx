@@ -35,7 +35,7 @@ const ProductCard = ({
                 alt={productName}
             />
             <h3>{productName}</h3>
-            <p>{productPrice}</p>
+            <p>${productPrice}</p>
         </div>
     );
 };
