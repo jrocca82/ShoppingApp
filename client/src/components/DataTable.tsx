@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 //@ts-ignore
 import SpicyDataTable from "spicy-datatable";
-import UserModel from "../models/users.model";
+import { ProductType } from "../types/product.model";
+import { UserType } from "../types/users.model";
 import "./styles/DataTable.css";
 
 type DataTableProps = {
@@ -10,7 +11,7 @@ type DataTableProps = {
         | { key: string; label: string; sort?: undefined }
         | { key: string; label: string; sort: boolean }
     )[];
-    rows: [] | [] | undefined;
+    rows: UserType[] | ProductType[] | undefined;
 };
 
 const DataTable = ({ tableKey, columns, rows }: DataTableProps) => {

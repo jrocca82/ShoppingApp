@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Cart.css";
 import SubmitOrderForm, { FormValues } from "../components/SubmitOrderForm";
 import ShoppingCartList from "../components/ShoppingCartList";
-import { ProductType } from "../models/product.model";
+import { ProductType } from "../types/product.model";
 
 type CartProps = {
     itemsInCart: ProductType[] | undefined;

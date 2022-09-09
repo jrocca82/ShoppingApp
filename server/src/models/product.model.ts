@@ -1,5 +1,7 @@
 import { getModelForClass, index, prop, modelOptions } from "@typegoose/typegoose";
 
+type StringArray = string[]
+
 @modelOptions({
   schemaOptions: {
     collection: "products",
@@ -11,13 +13,13 @@ export class Products {
   public name!: string;
 
   @prop()
-  public price: string;
+  public price!: string;
 
   @prop()
-  public images: [string];
+  public images!: StringArray;
 
   @prop()
-  public categories: [string];
+  public categories!: StringArray;
 }
 
 const ProductModel = getModelForClass(Products);

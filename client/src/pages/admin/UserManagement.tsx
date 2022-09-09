@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import "./shared.css";
 import DataTable from "../../components/DataTable";
 import LoadingIndicator from "../../components/LoadingIndicator";
-import UserModel from "../../models/users.model";
+import getUsers from "../../api/getUsers";
+import instance from "../../api/axios";
+import { UserType } from "../../types/users.model";
 
 const columns = [
     { key: "_id", label: "ID" },
@@ -11,10 +13,17 @@ const columns = [
 ];
 
 const UserManagement = () => {
-    const [users, setUsers] = useState<[]>();
+    const [users, setUsers] = useState<UserType[] | undefined>();
     const [loading, setLoading] = useState<boolean>(false);
 
-    useEffect(() => {});
+    useEffect(() => {
+        (async () => {
+            setLoading(true);
+            const users = await getUsers(instance);
+            setUsers(users);
+            setLoading(false);
+        })();
+    }, []);
 
     return (
         <div className="AdminView">

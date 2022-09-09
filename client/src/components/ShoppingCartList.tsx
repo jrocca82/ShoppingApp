@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import instance from "../api/axios";
 import { getProducts } from "../api/products";
-import { ProductType } from "../models/product.model";
+import { ProductType } from "../types/product.model";
 import Button from "./Button";
 import ProductCard from "./ProductCard";
 

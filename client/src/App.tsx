@@ -15,7 +15,7 @@ import Product from "./pages/Product";
 import store from "store2";
 import ProductManagement from "./pages/admin/ProductManagement";
 import UserManagement from "./pages/admin/UserManagement";
-import { ProductType } from "./models/product.model";
+import { ProductType } from "./types/product.model";
 
 function App() {
     const localStorage = store.get("itemsInCart");

@@ -1,4 +1,4 @@
-import {UserModel} from "../models/user.models";
+import UserModel from "../models/user.models";
 
 const user1 = new UserModel({
   id: '44jweqmw03f',

@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import ProductList from '../components/ProductList';
 import { getProductsByCategory } from '../api/products';
 import instance from '../api/axios';
-import { ProductType } from '../models/product.model';
+import { ProductType } from '../types/product.model';
 
 const Category = () =>  {
   const [products, setProducts] = useState<ProductType[]>([]);

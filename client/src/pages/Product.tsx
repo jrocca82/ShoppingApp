@@ -4,7 +4,7 @@ import instance from "../api/axios";
 import { getProductsById } from "../api/products";
 import LoadingIndicator from "../components/LoadingIndicator";
 import ProductView from "../components/ProductView";
-import { ProductType } from "../models/product.model";
+import { ProductType } from "../types/product.model";
 
 type ProductViewProps = {
     addToCart: (item: ProductType) => void;

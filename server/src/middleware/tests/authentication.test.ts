@@ -1,15 +1,13 @@
+import { NextFunction, Request, response, Response } from "express";
+import { ParamsDictionary } from "express-serve-static-core";
+import { ParsedQs } from "qs";
 import auth from "../authentication";
 
-test("It calls next()", () => {
-	const next = jest.fn((x) => x);
-	auth({}, {}, next);
-	expect(next.mock.calls.length).toBe(1);
-});
-
 test("It adds isAuthenticated and isAdmin flags to req", () => {
-	const next = jest.fn((x) => x);
-	const req = {};
-	auth(req, {}, next);
-	expect(typeof req.isAuthenticated === "boolean").toBe(true);
-	expect(typeof req.isAdmin === "boolean").toBe(true);
+	const next: NextFunction = jest.fn();
+	const req: any = {}
+  	const res: any = {};
+	auth(req, res, next);
+	expect(req.isAuthenticated).toBe(true);
+	expect(req.isAdmin).toBe(true);
 });
