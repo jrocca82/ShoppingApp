@@ -16,28 +16,29 @@ const ShoppingCartList = ({
     removeFromCart,
     startCheckout,
 }: ShoppingCartProps) => {
-    return items ? (
-        <div>
-            {items.map((item) => {
-                return (
-                    <ProductCard
-                        key={item._id}
-                        productName={item.name}
-                        productPrice={+item.price}
-                        images={item.images}
-                    />
-                );
-            })}
-            <Button
-                onClick={startCheckout}
-                className={"BaseButton PrimaryButton"}
-            >
-                Checkout
+    if (items && items.length > 0) {
+        return (
+          <div>
+            {items
+              .map((item, index) =>
+                <ProductCard
+                  key={item._id}
+                  productName={item.name}
+                  images={item.images}
+                  productPrice={+item.price}
+                  withRemoveButton
+                  onRemove={() => removeFromCart(index)}
+                />
+              )
+            }
+            <Button onClick={startCheckout} className={"BaseButton PrimaryButton"}>
+              Checkout
             </Button>
-        </div>
-    ) : (
-        <p>Your cart is empty. Add some awesome products! ✨</p>
-    );
+          </div>
+        );
+      } else {
+        return <p>Your cart is empty. Add some awesome products! ✨</p>;
+      }
 };
 
 export default ShoppingCartList;

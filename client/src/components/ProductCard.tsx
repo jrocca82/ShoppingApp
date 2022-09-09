@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Button from "./Button";
 import "./styles/ProductCard.css";
 
 type ProductCardProps = {
@@ -15,7 +16,8 @@ const ProductCard = ({
     productPrice,
     images,
     pull,
-    withRemoveButton
+    withRemoveButton,
+    onRemove,
 }: ProductCardProps) => {
     const [imageIndex, setImageIndex] = useState<number>(0);
 
@@ -36,6 +38,14 @@ const ProductCard = ({
             />
             <h3>{productName}</h3>
             <p>${productPrice}</p>
+            {withRemoveButton && (
+                <Button
+                    onClick={onRemove}
+                    className={"BaseButton SecondaryButton"}
+                >
+                    Remove
+                </Button>
+            )}
         </div>
     );
 };

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import { Routes, BrowserRouter as Router, Route } from "react-router-dom";
 import {
@@ -13,14 +13,15 @@ import {
 import { NavBar } from "./components";
 import Product from "./pages/Product";
 import store from "store2";
-import { usePageVisibility } from "react-page-visibility";
 import ProductManagement from "./pages/admin/ProductManagement";
 import UserManagement from "./pages/admin/UserManagement";
 import { ProductType } from "./models/product.model";
 
 function App() {
     const localStorage = store.get("itemsInCart");
-    const [itemsInCart, setItemsInCart] = useState<ProductType[]>(localStorage ? localStorage : []);
+    const [itemsInCart, setItemsInCart] = useState<ProductType[]>(
+        localStorage ? localStorage : []
+    );
 
     const addToCart = (item: ProductType) => {
         const newItems = [...itemsInCart];
@@ -33,7 +34,7 @@ function App() {
         const newItems = [...itemsInCart];
         newItems.splice(index, 1);
         store.set("itemsInCart", newItems);
-        setItemsInCart(newItems)
+        setItemsInCart(newItems);
     };
 
     return (
@@ -48,7 +49,7 @@ function App() {
                     <Route path="/forms" element={<FormPage />} />
                     <Route
                         path="/cart"
-                        element={<Cart itemsInCart={itemsInCart} />}
+                        element={<Cart itemsInCart={itemsInCart} removeFromCart={() => removeFromCart}/>}
                     />
                     <Route path="/orders" element={<Orders />} />
                     <Route path="/account" element={<Account />} />

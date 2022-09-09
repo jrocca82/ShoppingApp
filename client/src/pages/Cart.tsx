@@ -6,9 +6,10 @@ import { ProductType } from "../models/product.model";
 
 type CartProps = {
     itemsInCart: ProductType[] | undefined;
+    removeFromCart: (index: number) => void;
 };
 
-const Cart = ({ itemsInCart }: CartProps) => {
+const Cart = ({ itemsInCart, removeFromCart }: CartProps) => {
     const [checkoutState, setCheckoutState] = useState<string>();
     const [values, setValues] = useState<FormValues>();
     const [shippingAddress, setShippingAddress] = useState();
@@ -19,7 +20,6 @@ const Cart = ({ itemsInCart }: CartProps) => {
     const [errorMessage, setErrorMessage] = useState<string | undefined>(
         undefined
     );
-    const [items, setItems] = useState<ProductType[]>();
 
     const startCheckout = (e: any) => {
         setCheckoutState("started");
@@ -31,8 +31,6 @@ const Cart = ({ itemsInCart }: CartProps) => {
     const submitOrder = async () => {
         setLoading(true);
     };
-
-    const removeFromCart = () => {};
 
     return (
         <div className="Cart">
@@ -48,7 +46,7 @@ const Cart = ({ itemsInCart }: CartProps) => {
                 />
             ) : (
                 <ShoppingCartList
-                    items={items}
+                    items={itemsInCart}
                     removeFromCart={removeFromCart}
                     startCheckout={startCheckout}
                 />
