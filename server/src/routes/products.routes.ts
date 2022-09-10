@@ -20,16 +20,12 @@ export default (app: {
 }) => {
 	app.get('/products', async (req: Request, res: Response) => {
 		const { categories } = req.query;
-		
-		try {
-			const products = await ProductModel.find(categories ? {
+		const products = await ProductModel.find(
+			categories ? {
 				categories: { $in: categories }
 			} : {});
-			res.send(products);
-		} catch (err) {
-			res.send(404).end();
-		}
-	  });
+		res.send(products);
+	});
 
 	app.get("/products/:id", async (req: Request, res: Response) => {
 		try {
@@ -37,10 +33,10 @@ export default (app: {
 			if (product) {
 				res.send(product);
 			} else {
-				res.status(404).end();
+				res.sendStatus(404).end();
 			}
 		} catch (error) {
-			res.status(404).end();
+			res.sendStatus(404).end();
 		}
 	});
 

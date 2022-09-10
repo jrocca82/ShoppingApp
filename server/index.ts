@@ -1,5 +1,5 @@
 import { config } from "dotenv";
-import express from "express";
+import express, { RequestHandler } from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import getUserRoutes from "./src/routes/user.routes";
@@ -8,7 +8,6 @@ import getAuthRoutes from "./src/routes/auth.routes";
 import connectDatabase from "./src/scripts/database";
 import logger from "./src/middleware/logger";
 import admin from "./src/middleware/admin";
-import {  decode } from 'jsonwebtoken';
 
 config();
 
@@ -16,8 +15,6 @@ connectDatabase();
 
 const app = express();
 
-app.use(cors());
-app.use(logger);
 
 const port = process.env.PORT;
 
@@ -31,7 +28,9 @@ app.get("/", (req, res) => {
 getUserRoutes(app);
 getProductRoutes(app);
 getAuthRoutes(app);
-app.use(admin);
+app.use(admin as RequestHandler);
+app.use(cors());
+app.use(logger);
 
 app.listen(port, () => {
 	console.log("Listening on port", port);

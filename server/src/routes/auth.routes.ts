@@ -4,23 +4,15 @@ import jwt from "jsonwebtoken";
 import sendEmail from "../services/EmailService";
 //import EmailService from '../service/EmailService';
 import { IncomingHttpHeaders } from "http";
-import { Request, Response } from "express";
+import { Request, Response, Express } from "express";
 
-interface AuthRequest extends Request {
+export interface AuthRequest extends Request {
 	headers: IncomingHttpHeaders & {
-		authorization: string;
+		authorization?: string;
 	};
 }
 
-export default (app: {
-	post: (
-		arg0: string,
-		arg1: {
-			(req: any, res: any): Promise<void>;
-			(req: any, res: any): Promise<any>;
-		}
-	) => void;
-}) => {
+export default (app: Express) => {
 	app.post("/auth", async (req: AuthRequest, res: Response) => {
         if(req.headers.authorization) {
             res.sendStatus(200).end()
