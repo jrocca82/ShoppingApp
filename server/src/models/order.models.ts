@@ -17,7 +17,7 @@ export class Orders {
   public customer!: ObjectId;
 
   @prop()
-  public timestamp!: string;
+  public timestamp!: number;
 
   @prop()
   public products!: [{
@@ -33,7 +33,7 @@ export class Orders {
     addressLine2: string;
     city: string;
     county: string;
-    postCode: number;
+    postcode: number;
   }
 
   @prop()

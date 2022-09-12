@@ -56,6 +56,11 @@ function App() {
         setItemsInCart(newItems);
     };
 
+    const emptyCart = () => {
+        setItemsInCart([]);
+        store.set('itemsInCart', []);
+      };
+
     useEffect(() => {
         authorizeUser();
     }, [user]);
@@ -76,7 +81,8 @@ function App() {
                         element={
                             <Cart
                                 itemsInCart={itemsInCart}
-                                removeFromCart={() => removeFromCart}
+                                removeFromCart={removeFromCart}
+                                emptyCart={emptyCart}
                             />
                         }
                     />

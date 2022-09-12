@@ -1,7 +1,7 @@
 import axios from "./axios";
 import store from "store2";
 
-const getHeader = async () => ({
+export const getHeader = async () => ({
     authorization: `Bearer ${await store.get("authToken")}`,
 });
 
