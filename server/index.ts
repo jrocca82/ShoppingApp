@@ -2,6 +2,7 @@ import { config } from "dotenv";
 import express, { RequestHandler } from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
+import helmet from "helmet";
 import getUserRoutes from "./src/routes/user.routes";
 import getOrderRoutes from "./src/routes/orders.routes";
 import getProductRoutes from "./src/routes/products.routes";
@@ -20,6 +21,7 @@ const port = process.env.PORT;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(helmet());
 app.use(cors({
 	origin: 'http://localhost:3000'
 }));
