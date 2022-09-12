@@ -1,29 +1,36 @@
+import { ObjectId } from "mongoose";
 import React, { useState, SyntheticEvent } from "react";
+import instance from "../api/axios";
 import { placeOrder } from "../api/orders";
-import { ContactDetails, ShippingAddress } from "../types/orders.model";
 import { ProductType } from "../types/product.model";
 import Button from "./Button";
 import Form from "./Form";
 import { TextInput } from "./inputs";
 import LoadingIndicator from "./LoadingIndicator";
 
-export type FormValues = {
-    contactDetails: ContactDetails;
-    shippingAddress: ShippingAddress;
-};
-
 export type SubmitOrderFormProps = {
-    values?: FormValues;
     itemsInCart: ProductType[] | undefined;
+    emptyCart: () => void;
+    userId: string | undefined;
 };
 
-const SubmitOrderForm = ({ values, itemsInCart }: SubmitOrderFormProps) => {
-    const [successMessage, setSuccessMessage] = useState<string>();
-    const [errorMessage, setErrorMessage] = useState<string>();
+const SubmitOrderForm = ({
+    itemsInCart,
+    emptyCart,
+    userId
+}: SubmitOrderFormProps) => {
+    const [successMessage, setSuccessMessage] = useState<string>("");
+    const [errorMessage, setErrorMessage] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
-    const [value, setValue] = useState<string>();
+    const [name, setName] = useState<string>("");
+    const [phoneNumber, setPhoneNumber] = useState<string>("");
+    const [country, setCountry] = useState<string>("");
+    const [city, setCity] = useState<string>("");
+    const [addressLine1, setAddressLine1] = useState<string>("");
+    const [addressLine2, setAddressLine2] = useState<string>("");
+    const [postcode, setPostcode] = useState<string>("");
 
-    if (successMessage) {
+    if (successMessage !== "") {
         return (
             <div>
                 <h3 style={{ color: "mediumaquamarine" }}>Success! 🎉</h3>
@@ -32,19 +39,24 @@ const SubmitOrderForm = ({ values, itemsInCart }: SubmitOrderFormProps) => {
         );
     }
 
-    const handleChange = (e: { target: { name: string; value: string } }) => {
-        const { name, value } = e.target;
-    };
-
     const submitOrder = async (e: SyntheticEvent) => {
         e.preventDefault();
         setLoading(true);
-        if (itemsInCart && values) {
-            const result = await placeOrder({
+        if (itemsInCart && userId) {
+            const result = await placeOrder(instance, {
                 products: itemsInCart,
-                contactDetails: values.contactDetails,
-                shippingAddress: values.shippingAddress,
-                customer: "",
+                contactDetails: {
+                    fullName: name,
+                    phoneNumber: phoneNumber
+                },
+                shippingAddress: {
+                    addressLine1: addressLine1,
+                    addressLine2: addressLine2,
+                    city: city,
+                    country: country,
+                    postcode: Number(postcode)
+                },
+                customerId: userId,
                 timestamp: Date.now(),
             });
             if (result?.success) {
@@ -67,50 +79,50 @@ const SubmitOrderForm = ({ values, itemsInCart }: SubmitOrderFormProps) => {
             <TextInput
                 label="Full Name"
                 name="contact.fullName"
-                value={values?.contactDetails.fullName || ""}
-                onChange={handleChange}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 placeholder={"Full Name"}
             />
             <TextInput
                 label="Phone Number"
                 name="contact.phoneNumber"
-                value={values?.contactDetails.phoneNumber || ""}
-                onChange={handleChange}
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
                 placeholder={"Phone Number"}
             />
             <TextInput
                 label="Country"
                 name="shippingAddress.country"
-                value={values?.shippingAddress.country || ""}
-                onChange={handleChange}
+                value={country}
+                onChange={(e) => setCountry(e.target.value)}
                 placeholder={"Country"}
             />
             <TextInput
                 label="City"
                 name="shippingAddress.city"
-                value={values?.shippingAddress.city || ""}
-                onChange={handleChange}
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
                 placeholder={"City"}
             />
             <TextInput
                 label="Address Line 1"
                 name="shippingAddress.addressLine1"
-                value={values?.shippingAddress.addressLine1 || ""}
-                onChange={handleChange}
+                value={addressLine1}
+                onChange={(e) => setAddressLine1(e.target.value)}
                 placeholder={"Address Line 1"}
             />
             <TextInput
                 label="Address Line 2"
                 name="shippingAddress.addressLine2"
-                value={values?.shippingAddress.addressLine2 || ""}
-                onChange={handleChange}
+                value={addressLine2}
+                onChange={(e) => setAddressLine2(e.target.value)}
                 placeholder={"Address Line 2"}
             />
             <TextInput
                 label="Postal Code"
                 name="shippingAddress.postalCode"
-                value={values?.shippingAddress.postcode.toString() || ""}
-                onChange={handleChange}
+                value={postcode}
+                onChange={(e) => setPostcode(e.target.value)}
                 placeholder={"Postal Code"}
             />
             <Button disabled={loading} className={"BaseButton PrimaryButton"}>
@@ -123,6 +135,3 @@ const SubmitOrderForm = ({ values, itemsInCart }: SubmitOrderFormProps) => {
 };
 
 export default SubmitOrderForm;
-function emptyCart() {
-    throw new Error("Function not implemented.");
-}

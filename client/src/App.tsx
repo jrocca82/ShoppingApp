@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
-import { Routes, BrowserRouter as Router, Route } from "react-router-dom";
+import {
+    Routes,
+    BrowserRouter as Router,
+    Route,
+    useParams,
+} from "react-router-dom";
 import {
     Home,
     FormPage,
@@ -18,7 +23,7 @@ import UserManagement from "./pages/admin/UserManagement";
 import { ProductType } from "./types/product.model";
 import { UserType } from "./types/users.model";
 import Auth from "./pages/Auth";
-import { getAuth } from "./api/auth";
+import { getAuth, getHeader } from "./api/auth";
 
 function App() {
     const localStorage = store.get("itemsInCart");
@@ -30,16 +35,8 @@ function App() {
 
     const authorizeUser = async () => {
         const result = await getAuth();
-        if (result) {
-            //TODO get actual user info
-            setUser({
-                _id: "1234",
-                email: "email@gmail.com",
-                username: "jojo",
-                role: "admin",
-            });
-            setIsLoggedIn(true);
-        }
+        setUser(result);
+        setIsLoggedIn(true);
     };
 
     const addToCart = (item: ProductType) => {
@@ -58,12 +55,12 @@ function App() {
 
     const emptyCart = () => {
         setItemsInCart([]);
-        store.set('itemsInCart', []);
-      };
+        store.set("itemsInCart", []);
+    };
 
     useEffect(() => {
         authorizeUser();
-    }, [user]);
+    }, []);
 
     return (
         <Router>
@@ -83,6 +80,7 @@ function App() {
                                 itemsInCart={itemsInCart}
                                 removeFromCart={removeFromCart}
                                 emptyCart={emptyCart}
+                                userId={user ? user._id : undefined}
                             />
                         }
                     />

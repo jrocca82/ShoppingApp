@@ -1,4 +1,4 @@
-import axios from "./axios";
+import axios, { AxiosInstance } from "axios";
 import store from "store2";
 
 export const getHeader = async () => ({
@@ -7,16 +7,16 @@ export const getHeader = async () => ({
 
 export const getAuth = async () => {
     try {
-        const { data } = await axios.post(
-            "http://localhost:8888/auth",
-            {},
-            { headers: await getHeader() }
-            );
-        return data;
+      const { data } = await axios.post(
+        'http://localhost:8888/auth',
+        {},
+        { headers: await getHeader() }
+      );
+      return data;
     } catch (error) {
-        console.error(error);
+      console.error(error);
     }
-};
+  };
 
 export const login = async (email: string) => {
     try {

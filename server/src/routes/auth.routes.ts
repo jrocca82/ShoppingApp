@@ -5,6 +5,8 @@ import sendEmail from "../services/EmailService";
 //import EmailService from '../service/EmailService';
 import { IncomingHttpHeaders } from "http";
 import { Request, Response, Express } from "express";
+import { decodeToken } from "../helpers/decodeToken";
+import { ObjectId } from "mongoose";
 
 export interface AuthRequest extends Request {
 	headers: IncomingHttpHeaders & {
@@ -15,7 +17,10 @@ export interface AuthRequest extends Request {
 export default (app: Express) => {
 	app.post("/auth", async (req: AuthRequest, res: Response) => {
         if(req.headers.authorization) {
-            res.sendStatus(200).end()
+			const token = req.headers.authorization.replace("Bearer ", "");
+			const userId = decodeToken(token) as unknown as ObjectId;
+			const user = await UserModel.findById(userId);
+            res.send(user);
         } else {
             res.sendStatus(401).end()
         }

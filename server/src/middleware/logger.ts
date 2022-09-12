@@ -7,10 +7,6 @@ const logger = (req: AuthRequest, res: Response, next: NextFunction) => {
 		"=> ",
 		req.method,
 		req.url,
-		"Admin: ",
-		"Auth: ",
-		req.headers.authorization ? 
-		req.params.isAuthenticated = "true" : req.params.isAuthenticated = "false"
 	);
 	next();
 };

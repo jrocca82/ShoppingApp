@@ -1,10 +1,10 @@
-import axios from "./axios";
+import { AxiosInstance } from "axios";
 import { getHeader } from "./auth";
 import { OrdersType } from "../types/orders.model";
 
-export const getOrders = async () => {
+export const getOrders = async (instance: AxiosInstance) => {
     try {
-        const { data } = await axios.get("/v1/orders", {
+        const { data } = await instance.get("http://localhost:8888/orders", {
             headers: await getHeader(),
         });
         return {
@@ -19,23 +19,20 @@ export const getOrders = async () => {
     }
 };
 
-export const placeOrder = async (body: OrdersType) => {
-    try {
-        const { data } = await axios.post("/v1/orders", body, {
-            headers: await getHeader(),
-        });
-        if (data && data._id) {
-            return {
-                success: true,
-                data,
-            };
-        } else {
-            return {
-                success: false,
-                error: "An unknown error occurred. Please, retry again later.",
-            };
-        }
-    } catch (error) {
-        console.log(error);
+export const placeOrder = async (instance: AxiosInstance, body: OrdersType) => {
+    const { data } = await instance.post("http://localhost:8888/orders/new", body, {
+        headers: await getHeader(),
+    });
+    console.log(data);
+    if (data && data._id) {
+        return {
+            success: true,
+            data,
+        };
+    } else {
+        return {
+            success: false,
+            error: "An unknown error occurred. Please, retry again later.",
+        };
     }
 };

@@ -1,10 +1,11 @@
+import { ObjectId } from "mongoose";
 import { ProductType } from "./product.model";
 
 export type ShippingAddress = {
     addressLine1: string;
-    addressLine2: string;
+    addressLine2?: string;
     city: string;
-    country: string;
+    country?: string;
     postcode: number
 }
 
@@ -14,9 +15,14 @@ export type ContactDetails = {
 }
 
 export type OrdersType = {
-    customer: string;
+    customerId: string;
     timestamp: number;
     products: ProductType[];
+    contactDetails: ContactDetails;
+    shippingAddress: ShippingAddress;
+};
+
+export type FormValues = {
     contactDetails: ContactDetails;
     shippingAddress: ShippingAddress;
 };
