@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import { Routes, BrowserRouter as Router, Route } from "react-router-dom";
 import {
@@ -16,12 +16,31 @@ import store from "store2";
 import ProductManagement from "./pages/admin/ProductManagement";
 import UserManagement from "./pages/admin/UserManagement";
 import { ProductType } from "./types/product.model";
+import { UserType } from "./types/users.model";
+import Auth from "./pages/Auth";
+import { getAuth } from "./api/auth";
 
 function App() {
     const localStorage = store.get("itemsInCart");
     const [itemsInCart, setItemsInCart] = useState<ProductType[]>(
         localStorage ? localStorage : []
     );
+    const [user, setUser] = useState<UserType>();
+    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+
+    const authorizeUser = async () => {
+        const result = await getAuth();
+        if (result) {
+            //TODO get actual user info
+            setUser({
+                _id: "1234",
+                email: "email@gmail.com",
+                username: "jojo",
+                role: "admin",
+            });
+            setIsLoggedIn(true);
+        }
+    };
 
     const addToCart = (item: ProductType) => {
         const newItems = [...itemsInCart];
@@ -37,19 +56,29 @@ function App() {
         setItemsInCart(newItems);
     };
 
+    useEffect(() => {
+        authorizeUser();
+    }, [user]);
+
     return (
         <Router>
             <div className="App">
                 <NavBar
-                    isLoggedIn={true}
+                    isLoggedIn={user ? true : false}
                     counter={itemsInCart ? itemsInCart.length : 0}
                 />
                 <Routes>
                     <Route path="/" element={<Home />} />
+                    <Route path="/auth/:token" element={<Auth />} />
                     <Route path="/forms" element={<FormPage />} />
                     <Route
                         path="/cart"
-                        element={<Cart itemsInCart={itemsInCart} removeFromCart={() => removeFromCart}/>}
+                        element={
+                            <Cart
+                                itemsInCart={itemsInCart}
+                                removeFromCart={() => removeFromCart}
+                            />
+                        }
                     />
                     <Route path="/orders" element={<Orders />} />
                     <Route path="/account" element={<Account />} />
@@ -61,11 +90,18 @@ function App() {
                     <Route path="*" element={<NotFound />} />
 
                     {/* Admin Routes */}
-                    <Route path="/admin/users" element={<UserManagement />} />
-                    <Route
-                        path="/admin/products"
-                        element={<ProductManagement />}
-                    />
+                    {isLoggedIn && user?.role === "admin" && (
+                        <>
+                            <Route
+                                path="/admin/users"
+                                element={<UserManagement />}
+                            />
+                            <Route
+                                path="/admin/products"
+                                element={<ProductManagement />}
+                            />
+                        </>
+                    )}
                 </Routes>
             </div>
         </Router>

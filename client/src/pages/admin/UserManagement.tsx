@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./shared.css";
 import DataTable from "../../components/DataTable";
 import LoadingIndicator from "../../components/LoadingIndicator";
-import getUsers from "../../api/getUsers";
+import getUsers from "../../api/users";
 import instance from "../../api/axios";
 import { UserType } from "../../types/users.model";
 

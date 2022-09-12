@@ -19,6 +19,7 @@ export default (app: {
 	delete: (arg0: string, arg1: (req: Request, res: Response) => void) => void;
 }) => {
 	app.get('/products', async (req: Request, res: Response) => {
+		console.log(req.params);
 		const { categories } = req.query;
 		const products = await ProductModel.find(
 			categories ? {
