@@ -3,7 +3,6 @@ import { getProducts } from "../api/products";
 import { ProductList } from "../components";
 import instance from "../api/axios";
 import LoadingIndicator from "../components/LoadingIndicator";
-import { products } from "../data/mockData";
 import { ProductType } from "../types/product.model";
 
 const Home = () => {

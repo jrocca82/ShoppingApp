@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { getModelForClass, index, prop, modelOptions } from "@typegoose/typegoose";
+import { getModelForClass, prop, modelOptions } from "@typegoose/typegoose";
 
 export interface I_UserDocument extends mongoose.Document {
   username: string;

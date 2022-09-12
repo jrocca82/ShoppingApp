@@ -1,8 +1,7 @@
 import React, { SyntheticEvent, useState } from "react";
-import TextInput from "../components/inputs/TextInput";
-import Form from "../components/Form";
-import Button from "../components/Button";
 import { login } from "../api/auth";
+import { Button, Form } from "../components";
+import { TextInput } from "../components/inputs";
 
 const Account = () => {
     const [email, setEmail] = useState<string | undefined>();

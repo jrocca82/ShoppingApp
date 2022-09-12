@@ -1,4 +1,3 @@
-import { ObjectId } from "mongoose";
 import React, { useState, SyntheticEvent } from "react";
 import instance from "../api/axios";
 import { placeOrder } from "../api/orders";

@@ -1,11 +1,8 @@
-import React, { useState, SyntheticEvent } from "react";
+import React, { useState } from "react";
 import "./Cart.css";
 import SubmitOrderForm from "../components/SubmitOrderForm";
 import ShoppingCartList from "../components/ShoppingCartList";
 import { ProductType } from "../types/product.model";
-import { ContactDetails, ShippingAddress } from "../types/orders.model";
-import { placeOrder } from "../api/orders";
-import { ObjectId } from "mongoose";
 
 type CartProps = {
     itemsInCart: ProductType[] | undefined;

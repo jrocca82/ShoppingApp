@@ -1,4 +1,4 @@
-import { getModelForClass, index, prop, modelOptions, Severity } from "@typegoose/typegoose";
+import { getModelForClass, prop, modelOptions, Severity } from "@typegoose/typegoose";
 
 type StringArray = string[]
 

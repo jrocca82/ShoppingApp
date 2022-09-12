@@ -3,8 +3,11 @@ This is a full stack app using the MERN stack with Typescript.
 
 # Running the App
 This app requires running the server and client. Navigate to these respective folder and run "yarn start" in both.
-The database is on Mongo Atlas and is cloud based.
+
+The database is on Mongo Atlas and is cloud based. You can create your own for free on Mongo Atlas and connect it by setting the .env variable "MONGODB_URI" in the server folder to your own database's application connection string.
+
 The front end is running successfully if the client console says "Compiled successfully". Navigate to http://localhost:3000 in your browser to see the App.
+
 The server is running successfully if the server console says "Listening on port 8888" and "Connected to database"
 
 # Creating an Account

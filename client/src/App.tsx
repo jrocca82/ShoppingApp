@@ -4,7 +4,6 @@ import {
     Routes,
     BrowserRouter as Router,
     Route,
-    useParams,
 } from "react-router-dom";
 import {
     Home,
@@ -14,16 +13,16 @@ import {
     Account,
     Category,
     NotFound,
+    ProductPage
 } from "./pages/index";
 import { NavBar } from "./components";
-import Product from "./pages/Product";
 import store from "store2";
 import ProductManagement from "./pages/admin/ProductManagement";
 import UserManagement from "./pages/admin/UserManagement";
 import { ProductType } from "./types/product.model";
 import { UserType } from "./types/users.model";
 import Auth from "./pages/Auth";
-import { getAuth, getHeader } from "./api/auth";
+import { getAuth } from "./api/auth";
 
 function App() {
     const localStorage = store.get("itemsInCart");
@@ -89,7 +88,7 @@ function App() {
                     <Route path="/category/:slug" element={<Category />} />
                     <Route
                         path="/product/:id"
-                        element={<Product addToCart={addToCart} />}
+                        element={<ProductPage addToCart={addToCart} />}
                     />
                     <Route path="*" element={<NotFound />} />
 

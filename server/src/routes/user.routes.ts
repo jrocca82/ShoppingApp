@@ -1,16 +1,7 @@
 import UserModel from "../models/user.models";
-import { Request, Response } from "express";
+import { Request, Response, Express } from "express";
 
-export default (app: {
-	get: (
-		arg0: string,
-		arg1: {
-			(req: Request, res: Response): Promise<void>;
-			(req: Request, res: Response): Promise<void>;
-		}
-	) => void;
-	post: (arg0: string, arg1: (req: Request, res: Response) => void) => void;
-}) => {
+export default (app: Express) => {
 	app.get("/users", async (req: Request, res: Response) => {
 		// if (!req.params.isAdmin) {
 		// 	res.status(403).end();
